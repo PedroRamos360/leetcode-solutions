@@ -1,21 +1,14 @@
 function rotateArray(nums: number[], k: number): void {
   const actualK = k % nums.length;
   const lastIndex = nums.length - 1;
-  const aux = nums[lastIndex];
+  const copyNums = [...nums];
   for (let i = 0; i < nums.length; i++) {
     let index = lastIndex - actualK - i;
     if (index < 0) {
-      index + nums.length;
+      index += nums.length;
     }
-    nums[lastIndex - i] = nums[lastIndex - actualK - i];
+    copyNums[lastIndex - i] = nums[index];
   }
-  nums[lastIndex + actualK] = aux;
+  nums.length = 0;
+  nums.push(...copyNums);
 }
-
-const nums: number[] = [];
-for (let i = 0; i < 1000; i++) {
-  nums.push(i);
-}
-console.time("start");
-rotateArray(nums, 54944);
-console.timeEnd("start");
