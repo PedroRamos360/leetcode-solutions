@@ -1,18 +1,11 @@
 function maxProfit(prices: number[]): number {
-  let max = -Infinity;
-  const maxElement = Math.max(...prices);
-  const minElement = Math.min(...prices);
-  if (prices.indexOf(maxElement) > prices.indexOf(minElement)) {
-    return maxElement - minElement;
+  if (prices.length < 2) return 0;
+  let minPrice = prices[0];
+  let maxProfit = 0;
+  for (let i = 0; i < prices.length; i++) {
+    const potentialProfit = prices[i] - minPrice;
+    if (potentialProfit > maxProfit) maxProfit = potentialProfit;
+    if (prices[i] < minPrice) minPrice = prices[i];
   }
-  for (let i = 0; i < prices.length - 1; i++) {
-    for (let j = i + 1; j < prices.length; j++) {
-      const value = prices[j] - prices[i];
-      if (value > max) {
-        max = value;
-      }
-    }
-  }
-  if (max < 0) return 0;
-  return max;
+  return maxProfit;
 }
